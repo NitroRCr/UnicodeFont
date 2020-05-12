@@ -6,6 +6,6 @@
 
 当然，需要字体支持才能正常显示
 
-https://font.texice.xyz
+https://unicodefont.netlify.app
 
 （这类工具应该不少。无聊随手写的）
