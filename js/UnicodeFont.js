@@ -41,3 +41,27 @@ UnicodeFont.prototype.replaceAll = function (text, from, to) {
     }
     return text;
 }
+UnicodeFont.prototype.mixin = function (text, mixin, missBrackets) {
+    var result = '';
+    var inBrackets = false;
+    if (missBrackets) {
+        for (let i in text) {
+            let x = text[i];
+            if (inBrackets) {
+                result += x;
+            } else {
+                result += (mixin + x);
+            }
+            if (x == '[') {
+                inBrackets = true;
+            } else if (x == ']') {
+                inBrackets = false;
+            }
+        }
+    } else {
+        for (let i in text) {
+            result += (mixin + text[i]);
+        }
+    }
+    return result;
+}

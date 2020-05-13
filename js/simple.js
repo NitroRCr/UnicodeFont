@@ -8,6 +8,10 @@ UnicodeFontIndex.prototype.process = function(text) {
         $('pre.result.' + i).text(result);
         $('button.result.' + i).attr('data-clipboard-text', result);
     }
+    
+    var resultLT = this.unicodeFont.mixin(text, '\u{0336}');
+    $('pre.result.line-through').text(resultLT);
+    $('button.result.line-through').attr('data-clipboard-text', resultLT);
 }
 UnicodeFontIndex.prototype.init = function() {
     $('.start-process').click(() => {
@@ -34,6 +38,6 @@ var unicodeFontIndex = new UnicodeFontIndex([
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
     M.toast({
-        html: '已复制'
+        html: 'Copied'
     });
 })
