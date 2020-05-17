@@ -13,6 +13,7 @@ UnicodeFont.prototype.styles = {
         'sans-serif-bold': '𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭',
         'sans-serif-italic': '𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡',
         'sans-serif-bold-italic': '𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕',
+        'reverse': 'ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎzⱯꓭƆꓷꓱℲꓨHIꓩꞰꓶꟽNOꓒQꓤSꞱꓵɅMX⅄Z',
     },
     numbers: {
         'normal': '0123456789',
@@ -37,7 +38,8 @@ UnicodeFont.prototype.replaceAll = function (text, from, to) {
         if (to[i] === undefined) {
             continue;
         }
-        text = text.replace(new RegExp(from[i], 'g'), to.slice(2 * i, 2 * i + 2));
+        let step = (to.codePointAt(0) > 65536) ? 2 : 1;
+        text = text.replace(new RegExp(from[i], 'g'), to.slice(step * i, step * i + step));
     }
     return text;
 }
@@ -64,4 +66,7 @@ UnicodeFont.prototype.mixin = function (text, mixin, missBrackets) {
         }
     }
     return result;
+}
+UnicodeFont.prototype.reverse = function(text) {
+    return text.split('').reverse().join('');
 }

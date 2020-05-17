@@ -1,5 +1,6 @@
-function UnicodeFontIndex(fonts) {
+function UnicodeFontIndex(fonts, styles) {
     this.fonts = fonts;
+    this.styles = styles;
     this.unicodeFont = new UnicodeFont();
 }
 UnicodeFontIndex.prototype.process = function(text) {
@@ -9,6 +10,11 @@ UnicodeFontIndex.prototype.process = function(text) {
         $('button.result.' + i).attr('data-clipboard-text', result);
     }
     
+    for (let i in this.styles) {
+        let result = this.styles[i](text);
+        $('pre.result.' + i).text(result);
+        $('button.result.' + i).attr('data-clipboard-text', result);
+    }
     var resultLT = this.unicodeFont.mixin(text, '\u{0336}');
     $('pre.result.line-through').text(resultLT);
     $('button.result.line-through').attr('data-clipboard-text', resultLT);
@@ -34,7 +40,14 @@ var unicodeFontIndex = new UnicodeFontIndex([
     'monospace',
     'script',
     'bold-script',
-]);
+], {
+    'line-through': function(text) {
+        return unicodeFontIndex.unicodeFont.mixin(text);
+    },
+    'reverse': function(text) {
+        return unicodeFontIndex.unicodeFont.reverse(unicodeFontIndex.unicodeFont.font(text, 'reverse'));
+    }
+});
 new ClipboardJS('.to-copy');
 $('.to-copy').click(function () {
     M.toast({
