@@ -40,6 +40,7 @@ var unicodeFontIndex = new UnicodeFontIndex([
     'monospace',
     'script',
     'bold-script',
+    'fake-normal'
 ], {
     'line-through': function(text) {
         return unicodeFontIndex.unicodeFont.mixin(text);
