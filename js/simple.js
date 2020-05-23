@@ -46,7 +46,8 @@ var unicodeFontIndex = new UnicodeFontIndex([
         return unicodeFontIndex.unicodeFont.mixin(text);
     },
     'reverse': function(text) {
-        return unicodeFontIndex.unicodeFont.reverse(unicodeFontIndex.unicodeFont.font(text, 'reverse'));
+        var uni = unicodeFontIndex.unicodeFont;
+        return uni.toggleBrackets(uni.reverse(uni.font(text, 'reverse')));
     }
 });
 new ClipboardJS('.to-copy');
