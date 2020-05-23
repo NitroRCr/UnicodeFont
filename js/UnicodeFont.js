@@ -44,8 +44,6 @@ UnicodeFont.prototype.replaceAll = function (text, from, to) {
         if (to[i] === undefined) {
             continue;
         }
-        console.log(from[i], to[i], RegExp(from[i], 'g'));
-        console.log(text.replace(new RegExp(from[i], 'g'), to[i]));
         text = text.replace(new RegExp(from[i], 'g'), to[i]);
     }
     return text;
