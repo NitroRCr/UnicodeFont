@@ -40,13 +40,24 @@ UnicodeFont.prototype.font = function (text, style) {
     return text;
 }
 UnicodeFont.prototype.replaceAll = function (text, from, to) {
-    for (let i = 0; i < from.length; i++) {
-        if (to[i] === undefined) {
-            continue;
-        }
-        text = text.replace(new RegExp(from[i], 'g'), to[i]);
+    if (from.length != to.length) {
+        console.log('`from` and `to`, length are not the same!');
     }
-    return text;
+    var result = '';
+    var list = Array.from(text);
+    for (let i of list) {
+        let found = false;
+        for (let j in from) {
+            if (i == from[j]) {
+                result += to[j];
+                found = true;
+            }
+        }
+        if (!found) {
+            result += i;
+        }
+    }
+    return result;
 }
 UnicodeFont.prototype.mixin = function (text, mixin, missBrackets) {
     var result = '';
