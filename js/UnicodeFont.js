@@ -13,6 +13,7 @@ UnicodeFont.prototype.styles = {
         'sans-serif-bold': Array.from('𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭'),
         'sans-serif-italic': Array.from('𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡'),
         'sans-serif-bold-italic': Array.from('𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕'),
+        'mini': Array.from('ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'),
         'reverse': Array.from('ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎzⱯꓭƆꓷꓱℲꓨHIꓩꞰꓶꟽNOꓒQꓤSꞱꓵɅMX⅄Z'),
         //实际有效：асԁеցһіјӏոорԛѕսԝхуАВСЕНІЈКМОРԚЅΤՍԜХΥΖ
         'fake-normal': Array.from('аbсԁеfցһіјkӏmոорԛrѕtսvԝхуzАВСDЕFGНІЈКLМNОРԚRЅΤՍVԜХΥΖ'),
@@ -101,4 +102,36 @@ UnicodeFont.prototype.toggleBracketsChar = function (char) {
         (char == '<') ? '>' :
         (char == '>') ? '<' :
         char;
+}
+
+function Font(name, styles) {
+    this.name = name;
+    this["from"] = styles["from"];
+    this["normal"] = styles["normal"] || null;
+    this["bold"] = styles["bold"] || null;
+    this["italic"] = styles["italic"] || null;
+    this["bold-italic"] = styles["bold-italic"] || null;
+}
+Font.prototype.setStyle = function(text, styleName) {
+    return this.replaceAll(text, this.from, this[styleName]);
+}
+Font.prototype.replaceAll = function (text, from, to) {
+    if (from.length != to.length) {
+        console.log('`from` and `to`, length are not the same!');
+    }
+    var result = '';
+    var list = Array.from(text);
+    for (let i of list) {
+        let found = false;
+        for (let j in from) {
+            if (i == from[j]) {
+                result += to[j];
+                found = true;
+            }
+        }
+        if (!found) {
+            result += i;
+        }
+    }
+    return result;
 }
