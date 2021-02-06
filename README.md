@@ -6,6 +6,6 @@
 
 因此，它在很多地方通用。在任何完整支持Unicode且字体支持的地方都能够正常显示
 
-https://font.texice.xyz
+https://font.krytro.com
 
 （这类工具应该不少。无聊随手写的。）
